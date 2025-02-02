@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[RequireComponent(typeof(InputPlayerReader), typeof(Rigidbody2D))]
+[RequireComponent(typeof(InputPlayerReader), typeof(Rigidbody2D), typeof(PlayerAnimationController))]
 public class PlayerMover : MonoBehaviour
 {
     [Range(0, 7)][SerializeField] private float _speed;
@@ -44,7 +44,7 @@ public class PlayerMover : MonoBehaviour
         RotateLogic();
 
         Vector2 direction = new(_controller.HorizontalInput, 0);
-        transform.Translate(_speed * direction * Time.deltaTime);
+        transform.Translate(_speed * direction * Time.deltaTime, Space.World);
 
         _animationController.TriggerRun(_controller.HorizontalInput);
     }
@@ -52,8 +52,8 @@ public class PlayerMover : MonoBehaviour
     private void RotateLogic()
     {
         if (_controller.HorizontalInput < 0)
-            gameObject.GetComponent<SpriteRenderer>().flipX = true;
-        else if(_controller.HorizontalInput > 0)
-            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+        else if (_controller.HorizontalInput > 0)
+            gameObject.transform.rotation = Quaternion.identity;
     }
 }
