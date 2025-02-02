@@ -5,6 +5,7 @@ using UnityEngine;
 public class Coin : MonoBehaviour
 {
     private AudioSource _pickUpSound;
+    private WaitForSeconds _delay;
 
     private void Awake()
     {
@@ -13,6 +14,8 @@ public class Coin : MonoBehaviour
 
     public void Dispose()
     {
+        _delay = new WaitForSeconds(_pickUpSound.clip.length);
+
         StartCoroutine(PlaySoundWithDelay());
     }
 
@@ -20,11 +23,11 @@ public class Coin : MonoBehaviour
     {
         _pickUpSound.Play();
 
-        gameObject.GetComponent<SpriteRenderer>().enabled = false;
-        gameObject.GetComponent<Collider2D>().enabled = false;
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
 
-        yield return new WaitForSeconds(_pickUpSound.clip.length);
+        yield return _delay;
 
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

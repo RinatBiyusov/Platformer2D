@@ -2,15 +2,19 @@ using UnityEngine;
 
 public class GroundedChecker : MonoBehaviour
 {
-    public bool IsGrounded {  get; private set; }
+    private readonly string Ground = nameof(Ground);
 
-    private void OnTriggerStay2D(Collider2D collision)
+    public bool IsGrounded { get; private set; }
+
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        IsGrounded = true;
+        if (collision.gameObject.tag == Ground)
+            IsGrounded = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        IsGrounded = false;
+        if (collision.gameObject.tag == Ground)
+            IsGrounded = false;
     }
 }

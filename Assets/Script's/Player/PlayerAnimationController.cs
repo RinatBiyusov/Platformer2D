@@ -4,7 +4,7 @@ public class PlayerAnimationController : MonoBehaviour
 {
     [SerializeField] private Animator _animator;
 
-    private string Run = nameof(Run);
+    private readonly int _run = Animator.StringToHash("Run");
 
     private void Awake()
     {
@@ -14,8 +14,8 @@ public class PlayerAnimationController : MonoBehaviour
     public void TriggerRun(float value)
     {
         if (Mathf.Abs(value) > 0)
-            _animator.SetBool(Run, true);
+            _animator.SetBool(_run, true);
         else
-            _animator.SetBool(Run, false);
+            _animator.SetBool(_run, false);
     }
 }
