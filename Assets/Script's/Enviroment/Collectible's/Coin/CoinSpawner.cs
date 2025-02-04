@@ -18,7 +18,7 @@ public class CoinSpawner : MonoBehaviour
         if (_indexPosition >= _spawnpoints.Length)
             _indexPosition = (_indexPosition + 1) % _spawnpoints.Length;
 
-        var coin = Instantiate(_coin);
+        Coin coin = Instantiate(_coin);
 
         coin.transform.position = _spawnpoints[_indexPosition].position;
 

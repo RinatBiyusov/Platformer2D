@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(InputPlayerReader), typeof(Rigidbody2D), typeof(PlayerAnimationController))]
 public class PlayerMover : MonoBehaviour
-{
+{ 
     [Range(0, 7)][SerializeField] private float _speed;
     [Range(10, 20)][SerializeField] private float _jumpForce;
     [SerializeField] private GroundedChecker _groundedChecker;
@@ -41,19 +41,9 @@ public class PlayerMover : MonoBehaviour
 
     private void Move()
     {
-        RotateLogic();
-
         Vector2 direction = new(_controller.HorizontalInput, 0);
         transform.Translate(_speed * direction * Time.deltaTime, Space.World);
 
         _animationController.TriggerRun(_controller.HorizontalInput);
-    }
-
-    private void RotateLogic()
-    {
-        if (_controller.HorizontalInput < 0)
-            gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
-        else if (_controller.HorizontalInput > 0)
-            gameObject.transform.rotation = Quaternion.identity;
     }
 }
